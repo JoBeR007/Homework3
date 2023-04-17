@@ -1,9 +1,7 @@
 package ru.urfu;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+
 /*
 Используемая коллекция - HashSet, так как операции add(), remove() и важный для данной задачи contains()
 "стоят" константу (O(1)) благодаря HashMap (данная сложность операций также верна для LinkedHashSet,
@@ -12,7 +10,8 @@ import java.util.List;
 (в данном случае распределение по hashCode() в классе User равномерное, что даёт константное время метода contains())
 проходимся по первой коллекции collA и с помощью метода contains() ищем совпадения во
 второй коллекции collB, данные совпадения сохраняем и выводим в результат.
-Обход коллекции collA занимает O(n) и учитывая константный contains() получаем общую сложность O(n)
+Обход коллекции collA занимает O(n), добавление в HashSet<> тоже O(n)
+и учитывая константный contains() получаем общую сложность O(n + n)
 */
 public class Main {
 
@@ -28,7 +27,7 @@ public class Main {
 
     private static List<User> findDuplicates(Collection<User> collA, Collection<User> collB) {
         List<User> result = new ArrayList<>();
-        HashSet<User> hashSetB = (HashSet<User>) collB;
+        Set<User> hashSetB = new HashSet<>(collA);
         for (User e: collA) {
             if (hashSetB.contains(e)) {
                 result.add(e);
